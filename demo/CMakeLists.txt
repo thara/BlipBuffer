@@ -1,4 +1,8 @@
 project(waveform)
+
+include_directories(/usr/local/include /usr/local/include/SDL)
+link_directories(/usr/local/lib)
+
 set(COMMON_SOURCE_FILES ../Blip_Buffer.h ../Blip_Buffer.cpp ../player/player.cpp ../player/Wave_Writer.cpp)
 add_executable(waveform 1.waveform.cpp ${COMMON_SOURCE_FILES})
 
@@ -27,8 +31,10 @@ project(sample_formats)
 add_executable(sample_formats sample_formats.cpp ../Blip_Buffer.h ../Blip_Buffer.cpp ../player/Wave_Writer.cpp )
 
 project(sdl_audio)
+find_package(SDL)
+find_library(COCOA_LIBRARY Cocoa)
 add_executable(sdl_audio sdl_audio.cpp ../Blip_Buffer.h ../Blip_Buffer.cpp ../player/Wave_Writer.cpp ../sdl_player/Audio_Scope.cpp ../sdl_player/Sync_Audio.cpp)
-target_link_libraries(sdl_audio SDL)
+target_link_libraries(sdl_audio SDL SDLmain ${COCOA_LIBRARY})
 
 project(stereo)
 add_executable(stereo stereo.cpp ${COMMON_SOURCE_FILES})
